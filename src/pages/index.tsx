@@ -47,6 +47,30 @@ export const getStaticProps:GetStaticProps = async () => {
   })
 
   const episodes = data.map(episode=>{
+
+    // filtrar dados
+    const {
+      // attrs a remover
+      file,
+
+      // a renomear
+      published_at: publishedAt,
+
+      // manter
+      ...rest
+
+    } = episode;
+
+    // tratar/manipular e adicionar dados
+    return {
+      ...rest,
+      url: file.url,
+      duration: Number(file.duration),
+      publishedAt: format( parseISO(publishedAt), 'd MMM yy', {locale: ptBR } ),
+      durationAsString: convertDurationToTimeString( Number(file.duration) ),
+    }
+    
+    /*
     return {
       id: episode.id,
       title: episode.title,
@@ -58,7 +82,7 @@ export const getStaticProps:GetStaticProps = async () => {
       publishedAt: format( parseISO(episode.published_at), 'd MMM yy', {locale: ptBR } ),
       duration: Number(episode.file.duration),
       durationAsString: convertDurationToTimeString( Number(episode.file.duration) ),
-    };
+    };*/
   })
 
   return {
