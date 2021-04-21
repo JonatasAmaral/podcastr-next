@@ -4,19 +4,16 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { api } from '../services/api';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
 
-type File = {
-  url: string;
-  type: string;
-  duration: number;
-}
 type Episode = {
   id: string;
   title: string;
   members: string;
-  published_at: string;
+  publishedAt: string;
   thumbnail: string;
   description: string;
-  file: File;
+  duration: number;
+  durationAsString: string;
+  url: string;
 }
 type HomeProsp = {
   episodes: Episode[];
