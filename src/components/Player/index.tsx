@@ -4,7 +4,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 import styles from './styles.module.scss';
 
-export default function(){
+export default function Player(){
   const currentDate = format(new Date(), 'EEEEEE, d MMMM', {
     locale: ptBR,
   } );
