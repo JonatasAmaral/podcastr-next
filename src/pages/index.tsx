@@ -1,25 +1,23 @@
-import { useEffect, useState } from "react"
-
-export default function Home() {
-  const [podData, setPodData] = useState([]);
-  useEffect(()=>{
-    fetch('http://localhost:3333/episodes')
-      .then(response=>response.json())
-      .then(data=>{
-        console.log(data)
-        setPodData(data);
-      })
-  }, [])
-
+export default function Home(props) {
   return (
-    
-    podData.map(dp=>{
+    props.episodes.map(dp=>{
       return (
-        <>
+        <div key={dp.title}>
           <h2>{dp.title}</h2>
           <br />
-        </>
+        </ div>
       )
     })
   )
+}
+
+export async function getServerSideProps () {
+  const response = await fetch('http://localhost:3333/episodes')
+  const data = await response.json()
+
+  return {
+    props: {
+      episodes: data,
+    }
+  }
 }
