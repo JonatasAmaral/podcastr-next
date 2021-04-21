@@ -38,13 +38,18 @@ a {
   html { font-size: percentage(13px / 16px) }
 }
 
-body {
+html, body {
   background-color: var(--gray-50);
+  height: 100%;
 }
 
 body, input, textarea, button {
   font: 500 1rem Inter, sans-serif;
   color: var(--gray-500);
+}
+
+#__next {
+  height: 100%;
 }
 
 @for $i from 1 through 6{
