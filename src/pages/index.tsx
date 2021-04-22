@@ -7,6 +7,8 @@ import { api } from '../services/api';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
 
 import styles from './Home.module.scss';
+import PlayerContext from '../contexts/PlayerContext';
+import { useContext } from 'react';
 
 type Episode = {
   id: string;
@@ -24,30 +26,39 @@ type HomeProps = {
 }
 
 export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
+
+  const { play } = useContext(PlayerContext);
+
   return (
     <div className={styles.homepage}>
       <section className={styles.latestEpisodes}>
         <h2>Ultimos lançamentos</h2>
         <ul>
-          {latestEpisodes.map(episode=>(
+          {latestEpisodes.map((episode) => (
             <li key={episode.id}>
               <Image
-                width={3*64} // 3x maior p/ telas alta resolução
-                height={3*64}
-                objectFit='cover'
+                width={3 * 64} // 3x maior p/ telas alta resolução
+                height={3 * 64}
+                objectFit="cover"
                 src={episode.thumbnail}
                 alt={episode.title}
               />
 
               <div className={styles.episodeDetails}>
-                <Link href={`/episode/${episode.id}`}><a>{episode.title}</a></Link>
+                <Link href={`/episode/${episode.id}`}>
+                  <a>{episode.title}</a>
+                </Link>
                 <p>{episode.members}</p>
                 <span>{episode.publishedAt}</span>
                 <span>{episode.durationAsString}</span>
               </div>
 
-              <button type='button'>
-                <img src="play-green.svg" alt="Tocar episódio"/>
+              <button type="button">
+                <img
+                  src="play-green.svg"
+                  alt="Tocar episódio"
+                  onClick={() => play(episode)}
+                />
               </button>
             </li>
           ))}
@@ -69,30 +80,46 @@ export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
             </tr>
           </thead>
           <tbody>
-            {allEpisodes.map(episode=>(
+            {allEpisodes.map((episode) => (
               <tr key={episode.id}>
-                <td style={{
-                  width: 72,
-                }}>
+                <td
+                  style={{
+                    width: 72,
+                  }}
+                >
                   <Image
-                    width={64*2}
-                    height={64*2}
+                    width={64 * 2}
+                    height={64 * 2}
                     src={episode.thumbnail}
                     alt={episode.title}
-                    objectFit='cover'
+                    objectFit="cover"
                   />
                 </td>
 
-                <td> <Link href={`/episode/${episode.id}`}><a>{episode.title}</a></Link> </td>
+                <td>
+                  {" "}
+                  <Link href={`/episode/${episode.id}`}>
+                    <a>{episode.title}</a>
+                  </Link>{" "}
+                </td>
                 <td> {episode.members} </td>
-                <td style={{
-                  width: 100,
-                }}> {episode.publishedAt} </td>
+                <td
+                  style={{
+                    width: 100,
+                  }}
+                >
+                  {" "}
+                  {episode.publishedAt}{" "}
+                </td>
                 <td> {episode.durationAsString} </td>
 
                 <td>
-                  <button type='button'>
-                    <img src="play-green.svg" alt="Tocar episódio"/>
+                  <button type="button">
+                    <img
+                      src="play-green.svg"
+                      alt="Tocar episódio"
+                      onClick={() => play(episode)}
+                    />
                   </button>
                 </td>
               </tr>
@@ -101,7 +128,7 @@ export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
         </table>
       </section>
     </div>
-  )
+  );
 }
 
 export const getStaticProps:GetStaticProps = async () => {
