@@ -30,11 +30,13 @@
         width: 6rem;
         height: 6rem;
         border-radius: 1rem;
+        object-fit: cover;
       }
 
       .episodeDetails {
         flex: 1;
         margin-left: 1rem;
+        width: 0;
 
         a {
           display: block;

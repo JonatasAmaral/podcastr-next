@@ -14,17 +14,16 @@ type Episode = {
   members: string;
   publishedAt: string;
   thumbnail: string;
-  description: string;
   duration: number;
   durationAsString: string;
   url: string;
 }
-type HomeProsp = {
+type HomeProps = {
   latestEpisodes: Episode[];
   allEpisodes: Episode[];
 }
 
-export default function Home({latestEpisodes, allEpisodes}: HomeProsp) {
+export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
   return (
     <div className={styles.homepage}>
       <section className={styles.latestEpisodes}>
@@ -35,7 +34,7 @@ export default function Home({latestEpisodes, allEpisodes}: HomeProsp) {
               <Image
                 width={3*64} // 3x maior p/ telas alta resolução
                 height={3*64}
-                objectFit='contain'
+                objectFit='cover'
                 src={episode.thumbnail}
                 alt={episode.title}
               />
@@ -120,6 +119,7 @@ export const getStaticProps:GetStaticProps = async () => {
     const {
       // attrs a remover
       file,
+      description,
 
       // a renomear
       published_at: publishedAt,
