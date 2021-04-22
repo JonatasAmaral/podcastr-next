@@ -27,41 +27,38 @@ type EpisodeProps = {
 export default function Episode({episode}:EpisodeProps) {
 
   return (
-    <section className={styles.episode}>
-      <div className={styles.thumbnailContainer}>
-
-        <Link href="/">
+    <div className={styles.episodeWrapper}>
+      <section className={styles.episode}>
+        <div className={styles.thumbnailContainer}>
+          <Link href="/">
+            <button type="button">
+              <img src="/arrow-left.svg" alt="Voltar" />
+            </button>
+          </Link>
+          <Image
+            width={1200}
+            height={250}
+            src={episode.thumbnail}
+            objectFit="cover"
+          />
           <button type="button">
-            <img src="/arrow-left.svg" alt="Voltar" />
+            <img src="/play.svg" alt="Tocar episódio" />
           </button>
-        </Link>
-
-        <Image
-          width={1200}
-          height={250}
-          src={episode.thumbnail}
-          objectFit="cover"
-        />
-
-        <button type="button">
-          <img src="/play.svg" alt="Tocar episódio" />
-        </button>
-      </div>
-
-      <header>
-        <h1>{episode.title}</h1>
-
-        <span>{episode.members}</span>
-        <span>{episode.publishedAt}</span>
-        <span>{episode.durationAsString}</span>
-      </header>
-
-      <hr />
-
-      <div className={styles.description} dangerouslySetInnerHTML={{
-        __html: episode.description
-      }} />
-    </section>
+        </div>
+        <div className={styles.contentContainer}>
+          <header>
+            <h1>{episode.title}</h1>
+            <span>{episode.members}</span>
+            <span>{episode.publishedAt}</span>
+            <span>{episode.durationAsString}</span>
+          </header>
+          <hr />
+          <div className={styles.description} dangerouslySetInnerHTML={{
+            __html: episode.description
+          }} />
+        </div>
+      </section>
+    </div>
   );
 }
 

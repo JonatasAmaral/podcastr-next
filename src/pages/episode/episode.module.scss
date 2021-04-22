@@ -1,13 +1,33 @@
+.episodeWrapper {
+  width: 100%;
+  height: calc(100% - 6.5rem);
+  overflow-y: auto;
+  padding-top: 3rem;
+  background-image: repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.03) 0px 3px, transparent 3px 10px, );
+}
+
 .episode {
   max-width: 45rem;
-  padding: 3rem 2rem;
-  margin: 0 auto;
+  padding-bottom: 1rem;
+  margin: 0 auto 2rem;
+  background: white;
+  filter: drop-shadow(0 1rem 1.5rem rgba(0,0,0, 0.2));
+
+  
+  border-top-left-radius: .5rem;
+  border-top-right-radius: 2rem;
+  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+
 
   .thumbnailContainer {
     position: relative;
 
     img {
-      border-radius: 1rem;
+      border-top-left-radius: .5rem;
+      border-top-right-radius: 2rem;
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: .5rem;
     }
 
     button {
@@ -19,25 +39,30 @@
       z-index: 5;
       font-size: 0;
       top: 50%;
+      user-select: none;
 
       transition: filter 0.2s;
 
       &:hover{
-        filter: brightness(0.9);
+        filter: brightness(0.85);
       }
       
       &:first-of-type {
         left: 0;
         transform: translate(-50%, -50%);
-        background-color: var(--purple-500);
+        background-color: var(--unit-blue);
       }
 
       &:last-of-type {
         right: 0;
         transform: translate(50%, -50%);
-        background-color: var(--green-500);
+        background-color: var(--aqua-green);
       }
     }
+  }
+
+  .contentContainer {
+    margin: 0 2rem;
   }
 
   header {
