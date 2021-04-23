@@ -3,7 +3,6 @@ import Player from '../components/Player'
 import '../styles/globals.scss'
 import styles from '../styles/app.module.scss'
 import PlayerContextProvider from '../contexts/PlayerContext';
-import { useState } from 'react';
 
 function MyApp({ Component, pageProps }) {
   return (

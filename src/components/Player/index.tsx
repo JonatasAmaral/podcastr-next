@@ -16,6 +16,8 @@ export default function Player(){
     episodeList,
     currentEpisodeIndex,
     isPlaying,
+    playNext,
+    playPrevious,
     togglePlay,
   } = useContext(PlayerContext);
 
@@ -36,8 +38,8 @@ export default function Player(){
   return (
     <section className={styles.playerContainer}>
       <header>
-        <img src={episode? "/playing.svg":"/playing-not.svg"} alt="Tocando agora" />
-        <strong>{episode? "Tocando": "Não tá tocando"}</strong>
+        <img src={isPlaying? "/playing.svg":"/playing-not.svg"} alt="Tocando agora" />
+        <strong>{episode? (isPlaying? "Tocando": "Não tá tocando") : 'Não tem nada aqui'}</strong>
       </header>
 
         {episode ? (
@@ -96,11 +98,11 @@ export default function Player(){
           <button type="button" disabled={episodeList.length<3}>
             <img src="/shuffle.svg" alt="Embaralhar" />
           </button>
-          <button type="button" disabled={currentEpisodeIndex<=0}>
+          <button type="button" disabled={currentEpisodeIndex<=0} onClick={playPrevious}>
             <img src="/play-previous.svg" alt="Tocar anterior" />
           </button>
 
-          {isPlaying ? (
+          {episode && isPlaying ? (
             <button className={styles.playButton} type="button" onClick={()=>togglePlay(false)} >
               <img src="/pause.svg" alt="Pausar" />
             </button>
@@ -110,7 +112,7 @@ export default function Player(){
             </button>
           )}
 
-          <button type="button" disabled={(episodeList.length-1)-currentEpisodeIndex<=0}>
+          <button type="button" disabled={(episodeList.length-1)-currentEpisodeIndex<=0} onClick={playNext}>
             <img src="/play-next.svg" alt="Tocar proxima" />
           </button>
           <button type="button" disabled={!episode}>
