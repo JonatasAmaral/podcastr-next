@@ -7,8 +7,7 @@ import { api } from '../services/api';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
 
 import styles from './Home.module.scss';
-import { PlayerContext } from '../contexts/PlayerContext';
-import { useContext } from 'react';
+import { usePlayer } from '../contexts/PlayerContext';
 
 type Episode = {
   id: string;
@@ -25,20 +24,23 @@ type HomeProps = {
   allEpisodes: Episode[];
 }
 
-export function PlayButton ({episodeList, index, playList}) {
+export function PlayButton ({ episodeList, index, playerFunction } ) {
   return (
-    <button className={styles.playButton} type="button">
+    <button
+      className={styles.playButton}
+      type="button"
+      onClick={ ()=> playerFunction(episodeList, index) }
+    >
       <img
         src="/play.svg"
         alt="Tocar episódio"
-        onClick={() => playList(episodeList, index)}
       />
     </button>
   )
 }
 
 export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
-  const { playList } = useContext(PlayerContext);
+  const { playList } = usePlayer();
 
   const episodeList = [...latestEpisodes, ...allEpisodes];
 
@@ -66,7 +68,7 @@ export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
                 <span>{episode.durationAsString}</span>
               </div>
 
-              <PlayButton episodeList={episodeList} index={index} playList={playList} />
+              <PlayButton episodeList={episodeList} index={index} playerFunction={playList} />
             </li>
           ))}
         </ul>
@@ -121,7 +123,7 @@ export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
                 <td> {episode.durationAsString} </td>
 
                 <td>
-                  <PlayButton episodeList={episodeList} index={index+latestEpisodes.length} playList={playList} />
+                  <PlayButton episodeList={episodeList} index={index+latestEpisodes.length} playerFunction={playList} />
                 </td>
               </tr>
             ))}

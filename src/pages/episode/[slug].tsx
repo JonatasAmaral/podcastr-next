@@ -3,9 +3,8 @@ import { ptBR } from 'date-fns/locale';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useContext } from 'react';
 import { PlayButton } from '..';
-import { PlayerContext } from '../../contexts/PlayerContext';
+import { usePlayer } from '../../contexts/PlayerContext';
 import { api } from '../../services/api';
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
 
@@ -29,7 +28,7 @@ type EpisodeProps = {
 
 export default function Episode({episode}:EpisodeProps) {
 
-  const { playList } = useContext(PlayerContext)
+  const { playList } = usePlayer();
 
   return (
     <div className={styles.episodeWrapper}>
@@ -46,15 +45,7 @@ export default function Episode({episode}:EpisodeProps) {
             src={episode.thumbnail}
             objectFit="cover"
           />
-          {/* <PlayButton episodeList={[episode]} index={0} playList={play} /> */}
-          <PlayButton episodeList={[episode]} index={0} playList={playList} />
-          {/* <button type="button">
-            <img
-              src="/play.svg"
-              alt="Tocar episódio"
-              onClick={() => play(episode)}
-            />
-          </button> */}
+          <PlayButton episodeList={[episode]} index={0} playerFunction={playList} />
         </div>
         <div className={styles.contentContainer}>
           <header>
