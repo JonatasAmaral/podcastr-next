@@ -7,7 +7,7 @@ import { api } from '../services/api';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
 
 import styles from './Home.module.scss';
-import PlayerContext from '../contexts/PlayerContext';
+import { PlayerContext } from '../contexts/PlayerContext';
 import { useContext } from 'react';
 
 type Episode = {
