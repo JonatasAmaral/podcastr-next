@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -7,10 +7,12 @@ import { usePlayer } from '../../contexts/PlayerContext';
 
 
 import styles from './styles.module.scss';
+import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
 
 export default function Player(){
 
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [progress, setProgress] = useState(0);
 
   const {
     episodeList,
@@ -36,6 +38,14 @@ export default function Player(){
       // cleanup
     }
   }, [isPlaying])
+
+  function setupProgressListener () {
+    const audioPlayer = audioRef.current;
+    audioPlayer.currentTime = 0;
+    audioPlayer.addEventListener('timeupdate', ()=>{
+      setProgress( Math.floor(audioPlayer.currentTime) );
+    })
+  }
 
   const episode = episodeList[currentEpisodeIndex];
 
@@ -82,7 +92,7 @@ export default function Player(){
 
       <footer className={episode ? "" : styles.empty}>
         <div className={styles.progress}>
-          <span>00:00</span>
+          <span>{convertDurationToTimeString(progress)}</span>
           <div className={styles.slider}>
             {episode ? (
               <Slider
@@ -92,12 +102,15 @@ export default function Player(){
                   borderColor: "var(--aqua-green)",
                   borderWidth: 4,
                 }}
+
+                max={episode?.duration || 0}
+                value={progress}
               />
             ) : (
               <div className={styles.emptySlider}></div>
             )}
           </div>
-          <span>{episode?.durationAsString ?? "00:00"}</span>
+          <span>{episode?.durationAsString ?? "00:00:00"}</span>
         </div>
 
         {episode && (
@@ -108,6 +121,7 @@ export default function Player(){
             loop={isLooping}
             onPlay={() => togglePlay(true)}
             onPause={() => togglePlay(false)}
+            onLoadedMetadata={setupProgressListener}
           />
         )}
 
