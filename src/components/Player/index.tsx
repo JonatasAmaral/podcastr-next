@@ -25,6 +25,8 @@ export default function Player(){
     togglePlay,
     toggleLoop,
     toggleShuffle,
+    play,
+    clearPlayerState,
   } = usePlayer();
 
   useEffect(() => {
@@ -45,6 +47,27 @@ export default function Player(){
     audioPlayer.addEventListener('timeupdate', ()=>{
       setProgress( Math.floor(audioPlayer.currentTime) );
     })
+  }
+
+  function handleSeek(amount:number){
+    const audioPlayer = audioRef.current;
+    audioPlayer.currentTime = amount;
+    setProgress(amount);
+  }
+
+  function stopPlayer() {
+    togglePlay(false);
+    setProgress(0);
+  }
+  function handleFinish(){
+    // stopPlayer();
+    clearPlayerState;
+    if( isLooping ) {
+      setTimeout(()=>{
+        play(episode);
+      }, 5000)
+    }
+    else playNext();
   }
 
   const episode = episodeList[currentEpisodeIndex];
@@ -105,6 +128,7 @@ export default function Player(){
 
                 max={episode?.duration || 0}
                 value={progress}
+                onChange={handleSeek}
               />
             ) : (
               <div className={styles.emptySlider}></div>
@@ -122,6 +146,7 @@ export default function Player(){
             onPlay={() => togglePlay(true)}
             onPause={() => togglePlay(false)}
             onLoadedMetadata={setupProgressListener}
+            onEnded={handleFinish}
           />
         )}
 
@@ -166,7 +191,7 @@ export default function Player(){
 
           <button
             type="button"
-            disabled={episodeList.length - 1 - currentEpisodeIndex <= 0}
+            disabled={(episodeList.length - 1 - currentEpisodeIndex <= 0) && !isShuffle }
             onClick={playNext}
           >
             <img src="/play-next.svg" alt="Tocar proxima" />
