@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -10,7 +10,26 @@ import styles from './styles.module.scss';
 
 export default function Player(){
 
-  const { episodeList, currentEpisodeIndex } = useContext(PlayerContext);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const {
+    episodeList,
+    currentEpisodeIndex,
+    isPlaying,
+    togglePlay,
+  } = useContext(PlayerContext);
+
+  useEffect(() => {
+    
+    if(!audioRef.current) return;
+    
+    if(isPlaying) audioRef.current.play();
+    else audioRef.current.pause();
+    
+    return () => {
+      // cleanup
+    }
+  }, [isPlaying])
 
   const episode = episodeList[currentEpisodeIndex];
 
@@ -46,7 +65,7 @@ export default function Player(){
           </div>
         )}
 
-      <footer className={!episode && styles.empty}>
+      <footer className={episode? "":styles.empty}>
         <div className={styles.progress}>
           <span>00:00</span>
           <div className={styles.slider}>
@@ -63,6 +82,16 @@ export default function Player(){
           <span>{episode?.durationAsString ?? "00:00"}</span>
         </div>
 
+        { episode && 
+          <audio
+            src={episode.url}
+            ref={audioRef}
+            autoPlay
+            onPlay={()=>togglePlay(true)}
+            onPause={()=>togglePlay(false)}
+          />
+        }
+
         <div className={styles.buttons}>
           <button type="button" disabled={episodeList.length<3}>
             <img src="/shuffle.svg" alt="Embaralhar" />
@@ -70,13 +99,17 @@ export default function Player(){
           <button type="button" disabled={currentEpisodeIndex<=0}>
             <img src="/play-previous.svg" alt="Tocar anterior" />
           </button>
-          <button className={styles.playButton} type="button">
-            {episode ? (
-              <img src="/pause.svg" alt="Tocar" />
-            ):(
-              <img src="/play.svg" alt="Tocar" />
-            )}
-          </button>
+
+          {isPlaying ? (
+            <button className={styles.playButton} type="button" onClick={()=>togglePlay(false)} >
+              <img src="/pause.svg" alt="Pausar" />
+            </button>
+          ):(
+            <button className={styles.playButton} type="button" onClick={()=>togglePlay(true)} >
+              <img src="/play.svg" alt="Tocar"/>
+            </button>
+          )}
+
           <button type="button" disabled={(episodeList.length-1)-currentEpisodeIndex<=0}>
             <img src="/play-next.svg" alt="Tocar proxima" />
           </button>
