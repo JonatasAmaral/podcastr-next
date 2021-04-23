@@ -25,6 +25,18 @@ type HomeProps = {
   allEpisodes: Episode[];
 }
 
+function PlayButton ({episode,play}) {
+  return (
+    <button className={styles.playButton} type="button">
+      <img
+        src="play.svg"
+        alt="Tocar episódio"
+        onClick={() => play(episode)}
+      />
+    </button>
+  )
+}
+
 export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
 
   const { play } = useContext(PlayerContext);
@@ -53,13 +65,7 @@ export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
                 <span>{episode.durationAsString}</span>
               </div>
 
-              <button type="button">
-                <img
-                  src="play-green.svg"
-                  alt="Tocar episódio"
-                  onClick={() => play(episode)}
-                />
-              </button>
+              <PlayButton episode={episode} play={play} />
             </li>
           ))}
         </ul>
@@ -114,13 +120,7 @@ export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
                 <td> {episode.durationAsString} </td>
 
                 <td>
-                  <button type="button">
-                    <img
-                      src="play-green.svg"
-                      alt="Tocar episódio"
-                      onClick={() => play(episode)}
-                    />
-                  </button>
+                  <PlayButton episode={episode} play={play} />
                 </td>
               </tr>
             ))}

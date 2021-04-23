@@ -41,7 +41,7 @@
       top: 50%;
       user-select: none;
 
-      transition: filter 0.2s;
+      transition: filter 0.2s, transform 0.2s;
 
       &:hover{
         filter: brightness(0.85);
@@ -51,6 +51,10 @@
         left: 0;
         transform: translate(-50%, -50%);
         background-color: var(--unit-blue);
+
+        &:hover {
+          transform: translate(-70%, -50%);
+        }
       }
 
       &:last-of-type {
