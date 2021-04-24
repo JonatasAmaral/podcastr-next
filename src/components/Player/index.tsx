@@ -76,7 +76,7 @@ export default function Player(){
     <section className={styles.playerContainer}>
       <header>
         <img
-          src={isPlaying ? "/playing.svg" : "/playing-not.svg"}
+          src={isPlaying ? "/playing.anim.svg" : "/playing-not.svg"}
           alt="Tocando agora"
         />
         <strong>

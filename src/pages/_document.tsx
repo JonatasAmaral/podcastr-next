@@ -7,8 +7,10 @@ export default class MyDocument extends Document {
         <Head>
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link href="https://fonts.googleapis.com/css2?family=Inter&family=Lexend:wght@500;600&display=swap" rel="stylesheet" />
-          <link rel="icon" href="/favicon.png" />
-          <link rel="icon" href="/favicon.svg" />
+          <link rel="icon" href="/favicon.png" type="image/png" />
+          <link rel="icon" href="/favicon.svg" type="image/svg" />
+          <link rel="mask-icon" href="/favicon.svg" color="#6489e8" />
+          <meta name="theme-color" content="#6489e8"></meta>
         </Head>
         <body>
           <Main></Main>
