@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://my-json-server.typicode.com/JonatasAmaral/podcastr-next/'
+  baseURL: process.env.API_URL || 'http://localhost:3333/'
 })
