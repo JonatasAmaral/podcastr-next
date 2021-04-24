@@ -26,6 +26,7 @@ export default function Player(){
     toggleLoop,
     toggleShuffle,
     play,
+    resetPlayerState,
   } = usePlayer();
 
   useEffect(() => {
@@ -60,12 +61,16 @@ export default function Player(){
   }
   function handleFinish(){
     stopPlayer();
+    
     if( isLooping ) {
       setTimeout(()=>{
         play(episode);
       }, 5000)
     }
-    else playNext();
+    else {
+      if(currentEpisodeIndex<episodeList.length-1) playNext();
+      else resetPlayerState();
+    }
   }
 
   const episode = episodeList[currentEpisodeIndex];

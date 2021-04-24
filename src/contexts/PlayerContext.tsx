@@ -22,6 +22,7 @@ type PlayerContextData = {
   togglePlay: (forceState?)=>void;
   toggleLoop: ()=>void;
   toggleShuffle: ()=>void;
+  resetPlayerState: ()=>void;
 }
 
 type PlayerContextProviderProps = {
@@ -71,6 +72,12 @@ export default function PlayerContextProvider ({children }:PlayerContextProvider
   function toggleShuffle() {
     setIsShuffle(random=>!random);
   }
+
+  function resetPlayerState() {
+    setEpisodeList([]);
+    setCurrentEpisodeIndex(null);
+    setIsPlaying(false);
+  }
  
   return (
     <PlayerContext.Provider value={{
@@ -86,6 +93,7 @@ export default function PlayerContextProvider ({children }:PlayerContextProvider
       togglePlay,
       toggleLoop,
       toggleShuffle,
+      resetPlayerState,
     }}>
 
       {children}
