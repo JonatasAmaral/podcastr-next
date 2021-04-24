@@ -11,6 +11,18 @@ export default class MyDocument extends Document {
           <link rel="icon" href="/favicon.svg" type="image/svg" />
           <link rel="mask-icon" href="/favicon.svg" color="#6489e8" />
           <meta name="theme-color" content="#6489e8"></meta>
+
+          {/* preload icons */}
+          {[
+            "/repeat-one.svg",
+            "/shuffle.svg",
+            "/playing.anim.svg",
+            "/playing.svg",
+            "/pause.svg",
+            "/play.svg",
+          ].map((url) => (
+            <link rel="preload" href={url} as="image" />
+          ))}
         </Head>
         <body>
           <Main></Main>
