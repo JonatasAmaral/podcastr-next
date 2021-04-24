@@ -57,6 +57,8 @@ The media player on side bar, let you:
 - change time with the slider
 
 
+https://user-images.githubusercontent.com/8677724/115970011-3612d700-a516-11eb-9130-22459b203be0.mp4
+
 You can check it running over [here](https://podcastr-jonatas.vercel.app/)
 
 ### What you will find in it
@@ -80,6 +82,14 @@ You can check it running over [here](https://podcastr-jonatas.vercel.app/)
     + repeat
 * Dinamicaly generated static pages for each episode, with all it's info
 * Dynamic webpage tab title, with player state indicator (playing/pause/none)
+
+
+https://user-images.githubusercontent.com/8677724/115970615-e9c99600-a519-11eb-9fc4-22cc19c19852.mp4
+
+
+https://user-images.githubusercontent.com/8677724/115970617-ecc48680-a519-11eb-98df-32b41acd6862.mp4
+
+
 
 <h2 id="using" > Using it </h2>
 
