@@ -73,9 +73,10 @@ export default function PlayerContextProvider ({children }:PlayerContextProvider
     setIsShuffle(random=>!random);
   }
 
-  function clearPlayerState() { 
+  function clearPlayerState() {
+    console.log('clear');
     setEpisodeList([]);
-    setCurrentEpisodeIndex(0);
+    setCurrentEpisodeIndex(null);
   }
  
   return (

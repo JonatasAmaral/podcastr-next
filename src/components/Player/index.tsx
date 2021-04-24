@@ -60,8 +60,8 @@ export default function Player(){
     setProgress(0);
   }
   function handleFinish(){
-    // stopPlayer();
-    clearPlayerState;
+    stopPlayer();
+    clearPlayerState();
     if( isLooping ) {
       setTimeout(()=>{
         play(episode);

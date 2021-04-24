@@ -1,6 +1,7 @@
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PlayButton } from '..';
@@ -28,10 +29,13 @@ type EpisodeProps = {
 
 export default function Episode({episode}:EpisodeProps) {
 
-  const { playList } = usePlayer();
+  const { playList, isPlaying, episodeList } = usePlayer();
 
   return (
     <div className={styles.episodeWrapper}>
+      <Head>
+        <title>{episodeList.length>0? (isPlaying? '▶ ':'❚❚ '):'' }Podcastr: {episode.title}</title>
+      </Head>
       <section className={styles.episode}>
         <div className={styles.thumbnailContainer}>
           <Link href="/">

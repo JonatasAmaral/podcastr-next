@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
@@ -40,12 +41,15 @@ export function PlayButton ({ episodeList, index, playerFunction } ) {
 }
 
 export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
-  const { playList } = usePlayer();
+  const { playList, isPlaying, episodeList: episodesQueue } = usePlayer();
 
   const episodeList = [...latestEpisodes, ...allEpisodes];
 
   return (
     <div className={styles.homepage}>
+      <Head>
+        <title>{episodesQueue.length>0? (isPlaying? '▶ ':'❚❚ '):'' }Podcastr - Home: O melhor para você ouvir</title>
+      </Head>
       <section className={styles.latestEpisodes}>
         <h2>Ultimos lançamentos</h2>
         <ul>
