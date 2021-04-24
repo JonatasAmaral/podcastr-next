@@ -1,15 +1,8 @@
 {
-  "episodes": [
-    "id": "string",
+  "Post": {
     "title": "string",
-    "members": "string",
-    "published_at": "date",
-    "thumbnail": "string",
-    "description": "string",
-    "file": {
-      "url": "string",
-      "type": "string",
-      "duration": "number"
-    }
-  ]
+    "views": "int",
+    "published": "boolean",
+    "createdAt": "date"
+  }
 }
