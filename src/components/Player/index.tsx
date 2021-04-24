@@ -26,7 +26,6 @@ export default function Player(){
     toggleLoop,
     toggleShuffle,
     play,
-    clearPlayerState,
   } = usePlayer();
 
   useEffect(() => {
@@ -61,7 +60,6 @@ export default function Player(){
   }
   function handleFinish(){
     stopPlayer();
-    clearPlayerState();
     if( isLooping ) {
       setTimeout(()=>{
         play(episode);
@@ -154,7 +152,7 @@ export default function Player(){
           <button
             className={ isShuffle? styles.isActive : ''}
             type="button"
-            disabled={episodeList.length < 3}
+            disabled={episodeList.length < 3 || isLooping}
             onClick={toggleShuffle}
           >
             {isShuffle ? (
